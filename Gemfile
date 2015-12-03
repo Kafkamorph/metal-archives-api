@@ -27,10 +27,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-gem "nokogiri"
 gem "pry-rails"
 gem "pry"
-
+gem 'nokogiri'
+gem 'watir-webdriver'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
