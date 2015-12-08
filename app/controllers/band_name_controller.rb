@@ -24,8 +24,14 @@ class BandNameController < ApplicationController
     end
 
     if found
-      site = Nokogiri::HTML(browser.html)
-      binding.pry
+      if browser.div(id: "band_content").present?
+        band_attributes = WebScraper.scrape_band_page(browser.html)
+        @band = Band.new(band_attributes)
+      elsif browser.table(id: "searchResults").present?
+        # scrape and return json with each similar band and minimal information
+      else
+        # return error message about band not in database
+      end
     end
     browser.close
   end
