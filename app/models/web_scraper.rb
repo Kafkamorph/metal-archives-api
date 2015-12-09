@@ -9,11 +9,11 @@ class WebScraper
     band_attribs[:band_name_img] = site.css("a#logo")[0].attributes["href"].value
     band_attribs[:band_img] = site.css("a#photo")[0].attributes["href"].value
 
-    binding.pry
+    # binding.pry
     # This div#ui-tabs-5 needs to be targeted in a different way, since the id changes
-    album_header = site.css("div#ui-tabs-5 tr")[0].css("th").map {|e| e.text.downcase.to_sym}
+    album_header = site.css("div#band_disco div:nth-child(2) tr")[0].css("th").map {|e| e.text.downcase.to_sym}
 
-    album_data = site.css("div#ui-tabs-5 tr")[1..-1].map {|e| e.css("td").map {|el| el.text.squish}}
+    album_data = site.css("div#band_disco div:nth-child(2) tr")[1..-1].map {|e| e.css("td").map {|el| el.text.squish}}
 
     album_hashes = album_data.map {|e| Hash[album_header.zip(e)]}
     band_attribs[:albums] = album_hashes.map {|album| Album.new(album)}
