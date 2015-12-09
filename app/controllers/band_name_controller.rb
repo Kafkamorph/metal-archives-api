@@ -27,6 +27,7 @@ class BandNameController < ApplicationController
       if browser.div(id: "band_content").present?
         band_attributes = WebScraper.scrape_band_page(browser.html)
         @band = Band.new(band_attributes)
+        binding.pry
       elsif browser.table(id: "searchResults").present?
         # scrape and return json with each similar band and minimal information
       else
