@@ -1,4 +1,5 @@
 class Band
+  attr_reader :band_name, :country_of_origin, :location, :status, :formed_in, :genre, :lyrical_themes, :current_label, :years_active, :band_name_img, :band_img, :albums, :members
 
   def initialize(args = {})
     @band_name = args.fetch(:band_name) {|e| "No #{e} found"}
