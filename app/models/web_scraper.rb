@@ -14,7 +14,7 @@ class WebScraper
     band_attribs[:band_name_img] = site.css("a#logo")[0].attributes["href"].value
     band_attribs[:band_img] = site.css("a#photo")[0].attributes["href"].value
     band_attribs[:bio] = site.css("div#readMoreDialog")[0].text.squish
-    band_attribs[:id] = site.css("input[type=hidden]")[0].attributes["value"].value
+    band_attribs[:band_id] = site.css("input[type=hidden]")[0].attributes["value"].value
 
     # Collect albums from page
     album_header = site.css("div#band_disco div[role]:nth-child(2) tr")[0].css("th").map {|e| e.text.downcase.to_sym}
@@ -26,6 +26,15 @@ class WebScraper
     chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
 
     band_attribs
+  end
+
+  def self.scrape_search_page(browser)
+    site = Nokogiri::HTML(browser.html)
+    band_keys = [:band_name, :genre, :country_of_origin, :band_id]
+    band_values = site.css("table#searchResults tr")[1..-1].css("td").map {|e| e.text.squish}
+    band_ids = site.css("table#searchResults tr")[1..-1].css("a").map{|e| e.attributes['href'].value[29..-1]}
+    band_values = band_values.each_slice(3).to_a.each_with_index{|band, i| band << band_ids[i]}
+    band_values.map {|e| Hash[band_keys.zip(e)]}
   end
 
 end
