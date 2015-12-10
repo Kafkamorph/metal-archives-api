@@ -25,12 +25,12 @@ class BandController < ApplicationController
 
     if found
       if browser.div(id: "band_content").present?
-        # binding.pry
         band_attributes = WebScraper.scrape_band_page(browser)
         @band = Band.new(band_attributes)
         render :show
       elsif browser.table(id: "searchResults").present?
-        # scrape and return json with each similar band and minimal information
+        bands_array = WebScraper.scrape_search_page(browser)
+        @bands = bands_array.map {|band| Band.new(band)}
       else
         # return error message about band not in database
       end
