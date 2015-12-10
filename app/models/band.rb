@@ -1,5 +1,5 @@
 class Band
-  attr_reader :band_name, :country_of_origin, :location, :status, :formed_in, :genre, :lyrical_themes, :current_label, :years_active, :band_name_img, :band_img, :albums, :members
+  attr_reader :band_name, :country_of_origin, :location, :status, :formed_in, :genre, :lyrical_themes, :current_label, :years_active, :band_name_img, :band_img, :albums, :members, :bio, :id
 
   def initialize(args = {})
     @band_name = args.fetch(:band_name) {|e| "No #{e} found"}
@@ -15,6 +15,8 @@ class Band
     @band_img = args.fetch(:band_img) {|e| "No #{e} found"}
     @albums = args.fetch(:albums) {|e| "No #{e} found"}
     @members = args.fetch(:members) {|e| "No #{e} found"}
+    @bio = args.fetch(:bio) {|e| "No #{e} found"}
+    @id = args.fetch(:id) {|e| "No #{e} found"}
   end
 
 end
