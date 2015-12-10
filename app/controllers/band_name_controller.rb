@@ -25,10 +25,14 @@ class BandNameController < ApplicationController
 
     if found
       if browser.div(id: "band_content").present?
+        # binding.pry
+        if browser.link(:class, "btn_read_more").present?
+          browser.link(:class, "btn_read_more").click
+          sleep 1
+        end
         band_attributes = WebScraper.scrape_band_page(browser.html)
         @band = Band.new(band_attributes)
         render :show
-        # binding.pry
       elsif browser.table(id: "searchResults").present?
         # scrape and return json with each similar band and minimal information
       else
