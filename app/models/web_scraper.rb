@@ -9,6 +9,9 @@ class WebScraper
     band_attribs[:band_name] = site.css("h1.band_name a")[0].text
     band_attribs[:band_name_img] = site.css("a#logo")[0].attributes["href"].value
     band_attribs[:band_img] = site.css("a#photo")[0].attributes["href"].value
+    band_attribs[:bio] = site.css("div#readMoreDialog")[0].text.squish
+    band_attribs[:id] = site.css("input[type=hidden]")[0].attributes["value"].value
+    # binding.pry
 
     # Collect albums from page
     album_header = site.css("div#band_disco div[role]:nth-child(2) tr")[0].css("th").map {|e| e.text.downcase.to_sym}
@@ -17,7 +20,6 @@ class WebScraper
     band_attribs[:albums] = album_hashes.map {|album| Album.new(album)}
 
     # Collect members from page
-    binding.pry
     band_attribs
   end
 
