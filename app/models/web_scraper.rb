@@ -1,7 +1,11 @@
 class WebScraper
 
-  def self.scrape_band_page(html)
-    site = Nokogiri::HTML(html)
+  def self.scrape_band_page(browser)
+    if browser.link(:class, "btn_read_more").present?
+      browser.link(:class, "btn_read_more").click
+      sleep 1
+    end
+    site = Nokogiri::HTML(browser.html)
     # Collect band statistics from page
     keys = site.css("div#band_stats dt").map {|e| e.text.chop.squish.downcase.tr(" ", "_").to_sym}
     values = site.css("div#band_stats dd").map {|e| e.text.squish}
@@ -11,7 +15,6 @@ class WebScraper
     band_attribs[:band_img] = site.css("a#photo")[0].attributes["href"].value
     band_attribs[:bio] = site.css("div#readMoreDialog")[0].text.squish
     band_attribs[:id] = site.css("input[type=hidden]")[0].attributes["value"].value
-    # binding.pry
 
     # Collect albums from page
     album_header = site.css("div#band_disco div[role]:nth-child(2) tr")[0].css("th").map {|e| e.text.downcase.to_sym}
@@ -20,6 +23,9 @@ class WebScraper
     band_attribs[:albums] = album_hashes.map {|album| Album.new(album)}
 
     # Collect members from page
+    chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
+    binding.pry
+
     band_attribs
   end
 
