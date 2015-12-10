@@ -24,7 +24,6 @@ class WebScraper
 
     # Collect members from page
     chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
-    binding.pry
 
     band_attribs
   end
