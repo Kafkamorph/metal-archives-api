@@ -1,7 +1,7 @@
 require 'watir-webdriver'
 require 'open-uri'
 
-class BandNameController < ApplicationController
+class BandController < ApplicationController
 
   def index
     search_url = "http://www.metal-archives.com/search?searchString=#{params[:band_name]}&type=band_name"
