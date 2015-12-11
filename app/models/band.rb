@@ -17,6 +17,7 @@ class Band
     @members = args.fetch(:members) {|e| "No #{e} found"}
     @bio = args.fetch(:bio) {|e| "No #{e} found"}
     @band_id = args.fetch(:band_id) {|e| "No #{e} found"}
+    @member_relationship_to_band = args.fetch(:member_relationship_to_band) {|e| "No #{e} found"}
   end
 
 end
