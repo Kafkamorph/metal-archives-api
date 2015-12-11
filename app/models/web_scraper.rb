@@ -24,7 +24,21 @@ class WebScraper
 
     # Collect members from page
     chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
-
+    member_keys = [:status, :member_id, :name, :role, :associated_bands]
+    member_statuses = chunked_members_array.map do |member|
+      member.shift.text.squish
+    end
+    member_data = []
+    chunked_members_array.each_with_index do |member_chunk_by_status, index|
+      band_members = member_chunk_by_status.select.each_with_index {|_, i| i.even? }
+      band_members.each do |member|
+        member_data << member_statuses[index]
+        member_data << member.css('a')[0].attributes['href'].value[29..-1]
+        member_data << member.css('a')[0].text
+        member_data << member.css('td')[-1].text.squish
+      end
+    end
+          binding.pry
     band_attribs
   end
 
