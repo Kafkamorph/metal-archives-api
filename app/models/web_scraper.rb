@@ -30,15 +30,18 @@ class WebScraper
     end
     member_data = []
     chunked_members_array.each_with_index do |member_chunk_by_status, index|
-      band_members = member_chunk_by_status.select.each_with_index {|_, i| i.even? }
-      band_members.each do |member|
-        member_data << member_statuses[index]
-        member_data << member.css('a')[0].attributes['href'].value[29..-1]
-        member_data << member.css('a')[0].text
-        member_data << member.css('td')[-1].text.squish
+      member_chunk_by_status.each do |member|
+        if member.attributes['class'].value == 'lineupRow'
+          member_data << member_statuses[index]
+          member_data << member.css('a')[0].attributes['href'].value[29..-1]
+          member_data << member.css('a')[0].text
+          member_data << member.css('td')[-1].text.squish
+        end
       end
     end
-          binding.pry
+    member_keys.pop
+    member_hashes = member_data.each_slice(4).map {|e| Hash[member_keys.zip(e)]}
+    band_attribs[:members] = member_hashes.map {|member| Member.new(member)}
     band_attribs
   end
 
