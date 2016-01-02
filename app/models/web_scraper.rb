@@ -13,25 +13,36 @@ class WebScraper
 
     # Collect members from page
     member_keys = [:status, :member_id, :name, :role, :associated_bands]
+    member_data = []
     if site.xpath("//div[@id='band_members']//tr").any? {|row| row.attributes["class"].value == "lineupHeaders"}
-
       chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
       member_statuses = chunked_members_array.map do |member|
         member.shift.text.squish
       end
-      else
-        chunked_members_array = site.xpath("//div[@id='band_members']//tr").slice_when { |i, j| j.attributes['class'].value == "lineupRow"}.to_a
-    end
-    member_data = []
-    chunked_members_array.each_with_index do |member_chunk_by_status, index|
-      member_chunk_by_status.each do |member|
-        if member.attributes['class'].value == 'lineupRow'
-          member_data << member_statuses[index]
-          member_data << member.css('a')[0].attributes['href'].value[29..-1]
-          member_data << member.css('a')[0].text
-          member_data << member.css('td')[-1].text.squish
+      chunked_members_array.each_with_index do |member_chunk_by_status, index|
+        member_chunk_by_status.each do |member|
+          if member.attributes['class'].value == 'lineupRow'
+            member_data << member_statuses[index]
+            member_data << member.css('a')[0].attributes['href'].value[29..-1]
+            member_data << member.css('a')[0].text
+            member_data << member.css('td')[-1].text.squish
+          end
         end
       end
+
+      else
+        chunked_members_array = site.xpath("//div[@id='band_members']//tr").slice_when { |i, j| j.attributes['class'].value == "lineupRow"}.to_a
+        member_status = site.xpath("//div[@id='band_members']//a")[0].text
+        chunked_members_array.each do |member_chunk|
+          member_chunk.each do |member|
+            if member.attributes['class'].value == 'lineupRow'
+              member_data << member_status
+              member_data << member.css('a')[0].attributes['href'].value[29..-1]
+              member_data << member.css('a')[0].text
+              member_data << member.css('td')[-1].text.squish
+            end
+          end
+        end
     end
     member_keys.pop
     member_hashes = member_data.each_slice(4).map {|e| Hash[member_keys.zip(e)]}
