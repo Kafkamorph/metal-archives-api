@@ -23,11 +23,17 @@ class WebScraper
     band_attribs[:albums] = album_hashes.map {|album| Album.new(album)}
 
     # Collect members from page
-    chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
     member_keys = [:status, :member_id, :name, :role, :associated_bands]
-    member_statuses = chunked_members_array.map do |member|
-      member.shift.text.squish
+    if site.xpath("//div[@id='band_members']//tr").any? {|row| row.attributes["class"].value == "lineupHeaders"}
+
+      chunked_members_array = site.css("div#band_tab_members_all tr").slice_when { |i, j| j.attributes['class'].value == "lineupHeaders" }.to_a
+      member_statuses = chunked_members_array.map do |member|
+        member.shift.text.squish
+      end
+      else
+        chunked_members_array = site.xpath("//div[@id='band_members']//tr").slice_when { |i, j| j.attributes['class'].value == "lineupRow"}.to_a
     end
+    binding.pry
     member_data = []
     chunked_members_array.each_with_index do |member_chunk_by_status, index|
       member_chunk_by_status.each do |member|
