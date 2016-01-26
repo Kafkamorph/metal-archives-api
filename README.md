@@ -4,16 +4,16 @@ The [Encyclopaedia Metallum](http://www.metal-archives.com) is a valuable wealth
 
 #### Routes
 
-| HTTP Verb | URL                     |                                                                |
-|-----------|-------------------------|----------------------------------------------------------------|
-| GET       | /band_search/:band_name | Search band name, return single band or array of similar bands |
-| GET       | /band/:band_id          | Return single band                                             |
+| HTTP Verb | URL                       |                                                                |
+|-----------|---------------------------|----------------------------------------------------------------|
+| GET       | /band_search/:band_name   | Search band name, return single band or array of similar bands |
+| GET       | /band/:band_name/:band_id | Return single band                                             |
 
 ## This is a work in progress
 Things currently being worked on:
 
-  * Only band/search route is up and running.  I need to implement the band/show route.  This should be relatively easy since I've seperated out the scraper for the band show page.
   * Band show JSON returns members, but not their associated bands.  This is proving difficult because the status of their position in an associated band(ex, ex-live, live) is inline with the band and not separated out into it's own table data cell.  I may need to use regex to get around this problem.
+  * Band show also returns albums and reviews count with the percentage, but not an id for the reviews with the actual review content.
   * Catching the Watir exception error while waiting for the AJAX call to respond on the website feels shaky.  I need to look into a better way around this.
   * Create routes and controllers for Albums, Members, Labels.  This can be implemented down the road after everything else is solidified.
   * Write rspec tests.
