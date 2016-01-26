@@ -7,7 +7,7 @@ The [Encyclopaedia Metallum](http://www.metal-archives.com) is a valuable wealth
 | HTTP Verb | URL                       |                                                                |
 |-----------|---------------------------|----------------------------------------------------------------|
 | GET       | /band_search/:band_name   | Search band name, return single band or array of similar bands |
-| GET       | /band/:band_name/:band_id | Return single band                                             |
+| GET       | /bands/:band_name/:band_id | Return single band                                             |
 
 ## This is a work in progress
 Things currently being worked on:
