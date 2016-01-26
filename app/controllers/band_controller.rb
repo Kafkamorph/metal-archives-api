@@ -32,9 +32,20 @@ class BandController < ApplicationController
         bands_array = WebScraper.scrape_search_page(browser)
         @bands = bands_array.map {|band| Band.new(band)}
       else
-        # return error message about band not in database
+        # TODO: return error message about band not in database
       end
     end
     browser.close
+  end
+
+  def show
+    band_url = "http://www.metal-archives.com/bands/#{params[:band_name]}/#{params[:band_id]}"
+
+    browser = Watir::Browser.new :phantomjs
+    browser.goto(band_url)
+
+    band_attributes = WebScraper.scrape_band_page(browser)
+    @band = Band.new(band_attributes)
+
   end
 end
