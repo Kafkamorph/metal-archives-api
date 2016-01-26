@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
   get "band_search/:band_name" => "band#index", defaults: {format: 'json'}
 
+  get "bands/:band_name/:band_id" => "band#show", defaults: {format: 'json'}
+
   match '*all' => 'application#cors_options', via: :options
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
