@@ -7,7 +7,7 @@ class Member
     @member_id = args.fetch(:member_id){|e| "No #{e} found"}
     @name = args.fetch(:name){|e| "No #{e} found"}
     @role = args.fetch(:role){|e| "No #{e} found"}
-    @bands = args.fetch(:bands){|e| "No #{e} found"}
+    @associated_bands = args.fetch(:associated_bands){|e| "No #{e} found"}
 
   end
 
