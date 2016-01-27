@@ -26,6 +26,8 @@ class WebScraper
             member_data << member.at_css('a').attributes['href'].value[29..-1]
             member_data << member.at_css('a').text
             member_data << member.css('td')[-1].text.squish
+          elsif member.attributes['class'].value == 'lineupBandsRow'
+            member_data << self.create_associated_bands(member)
           end
         end
       end
@@ -48,6 +50,15 @@ class WebScraper
     member_hashes = member_data.each_slice(4).map { |e| Hash[member_keys.zip(e)] }
     band_attribs[:members] = member_hashes.map { |member| Member.new(member) }
     band_attribs
+  end
+
+  def self.create_associated_bands(member)
+    associated_bands_array = member.text.squish.split(/:(.+)/)[1].split(',').map {|e| e[1..-1]}
+    associated_bands_array.each_with_object([]) do |band_name, ary|
+      member.css('a').each do |band_link|
+        binding.pry
+      end
+    end
   end
 
   def self.scrape_search_page(browser)
