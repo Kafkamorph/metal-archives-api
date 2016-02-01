@@ -46,20 +46,34 @@ class WebScraper
         end
       end
     end
-    member_keys.pop
-    member_hashes = member_data.each_slice(4).map { |e| Hash[member_keys.zip(e)] }
+    # member_keys.pop
+    member_hashes = member_data.each_slice(5).map { |e| Hash[member_keys.zip(e)] }
     band_attribs[:members] = member_hashes.map { |member| Member.new(member) }
     band_attribs
   end
 
   def self.create_associated_bands(member)
     associated_bands_array = member.text.squish.split(/:(.+)/)[1].split(',').map {|e| e[1..-1]}
-    associated_bands_array.each_with_object([]) do |band_name, ary|
-      member.css('a').each do |band_link|
-        binding.pry
-      end
+    final_ary = []
+    associated_bands_array.each do |band_name|
+      bands_with_links = member.css('a').select {|link| band_name.include? link.text}
+      binding.pry
+
     end
+    final_ary
   end
+    # member.css('a').each do |band_link|
+    #   associated_bands_array.delete_if do |band_name|
+    #     if band_name.include? band_link.text
+    #       final_ary << Band.new(band_name: band_name, band_id: band_link.attributes['href'].value[29..-1])
+    #     else
+    #       final_ary << Band.new(band_name: band_name)
+    #       binding.pry
+    #       # true
+    #     end
+    #     true
+    #   end
+    # end
 
   def self.scrape_search_page(browser)
     site = Nokogiri::HTML(browser.html)
