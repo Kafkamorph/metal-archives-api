@@ -21,6 +21,7 @@ class WebScraper
       end
       chunked_members_array.each_with_index do |member_chunk_by_status, index|
         member_chunk_by_status.each do |member|
+          # binding.pry
           if member.attributes['class'].value == 'lineupRow'
             member_data << member_statuses[index]
             member_data << member.at_css('a').attributes['href'].value[29..-1]
@@ -42,6 +43,8 @@ class WebScraper
             member_data << member.at_css('a').attributes['href'].value[29..-1]
             member_data << member.at_css('a').text
             member_data << member.css('td')[-1].text.squish
+          elsif member.attributes['class'].value == 'lineupBandsRow'
+            member_data << self.create_associated_bands(member)
           end
         end
       end
