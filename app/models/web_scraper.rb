@@ -54,10 +54,19 @@ class WebScraper
 
   def self.create_associated_bands(member)
     associated_bands_array = member.text.squish.split(/:(.+)/)[1].split(',').map {|e| e[1..-1]}
+    pattern = /\A(ex-)?(.*?)?(\(live\))?\z/
     final_ary = []
     associated_bands_array.each do |band_name|
-      bands_with_links = member.css('a').select {|link| band_name.include? link.text}
-      binding.pry
+      regexed_array = pattern.match(band_name).captures.map!(&:to_s)
+      associated_band_attribs = Hash.new
+      associated_band_attribs[:band_name] = regexed_array[1].squish
+      band_with_links = member.css('a').select {|link| associated_band_attribs[:band_name] == link.text}
+      unless band_with_links.empty?
+        associated_band_attribs[:band_id] = band_with_links[0].attributes['href'].value[29..-1]
+      end
+      associated_band_attribs[:member_relationship_to_band] = regexed_array[0] + regexed_array[2]
+      final_ary << Band.new(associated_band_attribs)
+      # binding.pry
 
     end
     final_ary
