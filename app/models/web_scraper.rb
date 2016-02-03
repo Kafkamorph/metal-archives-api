@@ -90,8 +90,12 @@ class WebScraper
     values = site.css("div#band_stats dd").map { |e| e.text.squish }
     band_attribs = Hash[keys.zip values]
     band_attribs[:band_name] = site.at_css("h1.band_name a").text
-    band_attribs[:band_name_img] = site.at_css("a#logo").attributes["href"].value
-    band_attribs[:band_img] = site.at_css("a#photo").attributes["href"].value
+    if site.at_css("a#logo")
+      band_attribs[:band_name_img] = site.at_css("a#logo").attributes["href"].value
+    end
+    if site.at_css("a#photo")
+      band_attribs[:band_img] = site.at_css("a#photo").attributes["href"].value
+    end
     band_attribs[:bio] = site.at_css("div#readMoreDialog").text.squish
     band_attribs[:band_id] = site.at_css("input[type=hidden]").attributes["value"].value
     band_attribs
