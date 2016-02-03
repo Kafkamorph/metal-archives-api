@@ -1,6 +1,6 @@
 class Member
 
-  attr_reader :status, :member_id, :name, :role, :bands
+  attr_reader :status, :member_id, :name, :role, :associated_bands
 
   def initialize(args = {})
     @status = args.fetch(:status){|e| "No #{e} found"}
