@@ -12,7 +12,7 @@ The [Encyclopaedia Metallum](http://www.metal-archives.com) is a valuable wealth
 ## This is a work in progress
 Things currently being worked on:
 
-  * Band show JSON returns members, but not their associated bands.  This is proving difficult because the status of their position in an associated band(ex, ex-live, live) is inline with the band and not separated out into it's own table data cell.  I may need to use regex to get around this problem.
+  * Found an occational bug when making calls to the API too quickly.  Seems like a Cacheing issue with the Watir browser?
   * Band show also returns albums and reviews count with the percentage, but not an id for the reviews with the actual review content.
   * Catching the Watir exception error while waiting for the AJAX call to respond on the website feels shaky.  I need to look into a better way around this.
   * Create routes and controllers for Albums, Members, Labels.  This can be implemented down the road after everything else is solidified.
