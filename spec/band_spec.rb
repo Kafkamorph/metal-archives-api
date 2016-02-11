@@ -43,5 +43,6 @@ describe 'Bands API', type: :request do
     expect(json["band_name"]).to eq voivod.band_name
     expect(json["band_id"]).to eq voivod.band_id
     expect(json["members"][0]["status"]).to eq "Current"
+    expect(json["members"][4]["status"]).to eq "Past"
   end
 end
