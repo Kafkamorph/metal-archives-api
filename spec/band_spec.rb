@@ -11,5 +11,7 @@ describe 'Bands API', type: :request do
     expect(json["band_name"]).to eq ancestors.band_name
     expect(json["band_id"]).to eq ancestors.band_id
     expect(json["members"][0]["name"]).to eq "Mark McCoy"
+    expect(json["members"][0]["associated_bands"][0]["band_name"]).to eq "Devouring Ghost"
+    expect(json["members"][0]["associated_bands"][0]["band_id"]).to eq "/bands/Devouring_Ghost/3540397083"
   end
 end
