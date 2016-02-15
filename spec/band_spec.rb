@@ -32,6 +32,15 @@ describe 'Bands API', type: :request do
     expect(json["members"][5]["associated_bands"]).to_not be_nil
   end
 
+  it 'sends multiple bands' do
+    get "/band_search/slayer", nil \
+
+    expect(response).to have_http_status(:success)
+
+    json = JSON.parse(response.body)
+    expect(json["bands"]).to be_instance_of(Array)
+  end
+
   xit 'sends voivod band' do
     voivod = FactoryGirl.build(:voivod_band)
 
