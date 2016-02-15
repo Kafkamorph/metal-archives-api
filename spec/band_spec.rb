@@ -32,7 +32,16 @@ describe 'Bands API', type: :request do
     expect(json["members"][5]["associated_bands"]).to_not be_nil
   end
 
-  it 'sends voivod band' do
+  it 'sends multiple bands' do
+    get "/band_search/slayer", nil \
+
+    expect(response).to have_http_status(:success)
+
+    json = JSON.parse(response.body)
+    expect(json["bands"]).to be_instance_of(Array)
+  end
+
+  xit 'sends voivod band' do
     voivod = FactoryGirl.build(:voivod_band)
 
     get voivod.band_id, nil \
@@ -44,5 +53,11 @@ describe 'Bands API', type: :request do
     expect(json["band_id"]).to eq voivod.band_id
     expect(json["members"][0]["status"]).to eq "Current"
     expect(json["members"][4]["status"]).to eq "Past"
+  end
+
+  it 'sends 400 error for unfound band' do
+    get "/band_search/magrudergrind", nil \
+
+    expect(response).to have_http_status(400)
   end
 end
