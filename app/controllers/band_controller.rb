@@ -1,6 +1,3 @@
-require 'watir-webdriver'
-require 'open-uri'
-
 class BandController < ApplicationController
 
   def index
@@ -16,14 +13,10 @@ class BandController < ApplicationController
       begin
         count += 1
         Watir::Wait.until { browser.div(id: "band_content").present? || browser.table(:id, 'searchResults').to_a[1..-1].length > 0}
-        if browser.table(:id, 'searchResults').to_a[1..-1][0][0] == "No matches found. Please try with different search terms. You could use wildcards (*) for more matches, or read more about your search options."
-          render :json => { :errors => "No matches found.  Please try with different search terms.", status: 400}, status: :bad_request
-        end
         found = true
-       rescue Watir::Exception::UnknownObjectException
-        puts "Saw error"
-        sleep 1
-       end
+      rescue Watir::Exception::UnknownObjectException
+        sleep 0.5
+      end
     end
 
     if found
@@ -31,6 +24,8 @@ class BandController < ApplicationController
         band_attributes = WebScraper.scrape_band_page(browser)
         @band = Band.new(band_attributes)
         render :show
+      elsif browser.table(:id, 'searchResults').to_a[1..-1][0][0] == "No matches found. Please try with different search terms. You could use wildcards (*) for more matches, or read more about your search options."
+        render :json => { :errors => "No matches found.  Please try with different search terms.", status: 400}, status: :bad_request
       elsif browser.table(id: "searchResults").present?
         bands_array = WebScraper.scrape_search_page(browser)
         @bands = bands_array.map {|band| Band.new(band)}
