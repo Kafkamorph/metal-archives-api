@@ -1,6 +1,3 @@
-require 'watir-webdriver'
-require 'open-uri'
-
 class BandController < ApplicationController
 
   def index
@@ -18,8 +15,7 @@ class BandController < ApplicationController
         Watir::Wait.until { browser.div(id: "band_content").present? || browser.table(:id, 'searchResults').to_a[1..-1].length > 0}
         found = true
       rescue Watir::Exception::UnknownObjectException
-        puts "Saw error"
-        sleep 1
+        sleep 0.5
       end
     end
 
