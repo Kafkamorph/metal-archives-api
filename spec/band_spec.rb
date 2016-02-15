@@ -39,6 +39,23 @@ describe 'Bands API', type: :request do
 
     json = JSON.parse(response.body)
     expect(json["bands"]).to be_instance_of(Array)
+    expect(json["bands"].length).to be > 0
+  end
+
+  it 'sends single band from band_search if appropriate' do
+    get "/band_search/blood_incantation"
+
+    expect(response).to have_http_status(:success)
+
+    json = JSON.parse(response.body)
+    expect(json["band_name"]).to eq "Blood Incantation"
+    expect(json["band_id"]).to eq "/bands/Blood_Incantation/3540368063"
+  end
+
+  it 'sends 400 error for unfound band' do
+    get "/band_search/magrudergrind", nil \
+
+    expect(response).to have_http_status(400)
   end
 
   xit 'sends voivod band' do
@@ -53,11 +70,5 @@ describe 'Bands API', type: :request do
     expect(json["band_id"]).to eq voivod.band_id
     expect(json["members"][0]["status"]).to eq "Current"
     expect(json["members"][4]["status"]).to eq "Past"
-  end
-
-  it 'sends 400 error for unfound band' do
-    get "/band_search/magrudergrind", nil \
-
-    expect(response).to have_http_status(400)
   end
 end
