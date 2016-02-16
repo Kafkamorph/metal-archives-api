@@ -58,7 +58,7 @@ describe 'Bands API', type: :request do
     expect(response).to have_http_status(400)
   end
 
-  xit 'sends voivod band' do
+  it 'sends voivod band' do
     voivod = FactoryGirl.build(:voivod_band)
 
     get voivod.band_id, nil \
