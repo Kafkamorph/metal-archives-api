@@ -12,10 +12,9 @@ gem "pry-rails"
 gem "pry"
 gem 'nokogiri'
 gem 'watir-webdriver'
-  gem 'web-console', '~> 2.0', group: :development
+gem 'web-console', '~> 2.0', group: :development
 
 group :development, :test do
-  gem 'byebug'
   gem "rspec-rails", "~> 3.1.0"
   gem "factory_girl_rails", "~> 4.4.1"
   gem 'spring'
