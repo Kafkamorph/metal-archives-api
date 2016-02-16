@@ -49,7 +49,6 @@ class WebScraper
             member_data << member.at_css('a').text
             member_data << member.css('td')[-1].text.squish
             if member_chunk[index - 1].attributes['class'].value == 'lineupRow'
-              # binding.pry
               member_data.insert(-5, "No Associated Bands")
             end
           elsif member.attributes['class'].value == 'lineupBandsRow'
