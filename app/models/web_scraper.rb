@@ -26,6 +26,12 @@ class WebScraper
             member_data << member.at_css('a').attributes['href'].value[29..-1]
             member_data << member.at_css('a').text
             member_data << member.css('td')[-1].text.squish
+            if member_chunk_by_status[member_index - 1].attributes['class'].value == 'lineupRow' && member_index > 0
+              member_data.insert(-1, "No Associated Bands")
+            end
+            if chunked_members_array[index - 1][-1].attributes['class'].value == 'lineupRow' && member_index == 0
+              member_data.insert(-5, "No Associated Bands")
+            end
           elsif member.attributes['class'].value == 'lineupBandsRow'
             member_data << self.create_associated_bands(member)
           end
@@ -43,6 +49,7 @@ class WebScraper
             member_data << member.at_css('a').text
             member_data << member.css('td')[-1].text.squish
             if member_chunk[index - 1].attributes['class'].value == 'lineupRow'
+              # binding.pry
               member_data.insert(-5, "No Associated Bands")
             end
           elsif member.attributes['class'].value == 'lineupBandsRow'
