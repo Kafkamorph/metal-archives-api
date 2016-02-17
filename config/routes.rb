@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   get "bands/:band_name/:band_id" => "band#show", defaults: {format: 'json'}
 
   match '*all' => 'application#cors_options', via: :options
+
+  root "welcome#index"
 end
