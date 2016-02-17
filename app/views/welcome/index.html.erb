@@ -1,1 +1,31 @@
-HI
+<h1>Metal Archives API</h1>
+
+<p>The <a href="http://www.metal-archives.com/">Encyclopaedia Metallum</a> is a valuable wealth of knowledge for heavy metal music. The site has excessive details pertaining to an extreme amount bands. But unfortunately there is no public API for people to access their data. So I've decided to scrape the site and build a RESTful JSON API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP Verb</th>
+      <th>URL</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td>/band_search/:band_name</td>
+      <td>Search band name, return single band or array of similar bands</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/bands/:band_name/:band_id</td>
+      <td>Return single band</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Created by <a href="http://gp3gp3gp3.github.io">George Paul</a></li>
+  <li><a href="http://www.github.com/gp3gp3gp3">Github</a></li>
+  <li><a href="mailto:george.allen.paul.3@gmail.com">Email</a></li>
+</ul>
