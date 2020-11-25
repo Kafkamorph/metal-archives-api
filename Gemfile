@@ -6,12 +6,12 @@ gem 'rails', '5.2.4.4'
 gem 'sass-rails', '~> 5.0', '>= 5.0.5'
 gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.2.2'
-gem 'jquery-rails', '>= 4.4.0'
+gem 'jquery-rails', '>= 4.1.1'
 gem 'jbuilder', '~> 2.6', '>= 2.6.4'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem "pry-rails"
 gem "pry"
-gem 'nokogiri', '>= 1.10.8'
+gem 'nokogiri', '>= 1.8.3'
 gem 'watir-webdriver', '>= 0.9.1'
 gem 'web-console', '~> 2.3', '>= 2.3.0', group: :development
 
