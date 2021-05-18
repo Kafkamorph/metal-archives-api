@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 2.6', '>= 2.6.4'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem "pry-rails"
 gem "pry"
-gem 'nokogiri', '>= 1.11.0'
+gem 'nokogiri', '>= 1.11.4'
 gem 'watir-webdriver', '>= 0.9.1'
 gem 'web-console', '~> 2.3', '>= 2.3.0', group: :development
 
