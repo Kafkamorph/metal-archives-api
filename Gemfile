@@ -2,16 +2,16 @@ source 'https://rubygems.org'
 
 ruby "2.2.1"
 
-gem 'rails', '5.0.0'
-gem 'sass-rails', '~> 5.0', '>= 5.0.5'
+gem 'rails', '4.2.8'
+gem 'sass-rails', '~> 5.0', '>= 5.0.4'
 gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.1'
 gem 'jquery-rails', '>= 4.1.0'
-gem 'jbuilder', '~> 2.6', '>= 2.6.4'
+gem 'jbuilder', '~> 2.4', '>= 2.4.1'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem "pry-rails"
 gem "pry"
-gem 'nokogiri', '>= 1.11.0'
+gem 'nokogiri', '>= 1.8.5'
 gem 'watir-webdriver', '>= 0.9.1'
 gem 'web-console', '~> 2.3', '>= 2.3.0', group: :development
 
