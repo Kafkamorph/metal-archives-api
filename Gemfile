@@ -10,7 +10,7 @@ gem 'coffee-rails', '~> 4.1.1'
 
 gem 'jquery-rails', '>= 4.1.0'
 
-gem 'jbuilder', '~> 2.6', '>= 2.6.4'
+gem 'jbuilder', '~> 2.4', '>= 2.4.1'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem "pry-rails"
 gem "pry"
