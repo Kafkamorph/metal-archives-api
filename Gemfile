@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby "2.2.1"
 
-gem 'rails', '4.2.5.1'
-gem 'sass-rails', '~> 5.0', '>= 5.0.4'
+gem 'rails', '5.2.4.6'
+gem 'sass-rails', '~> 5.0', '>= 5.0.5'
 gem 'uglifier', '>= 2.7.2'
-gem 'coffee-rails', '~> 4.1.1'
-gem 'jquery-rails', '>= 4.1.0'
+gem 'coffee-rails', '~> 4.2.2'
+gem 'jquery-rails', '>= 4.4.0'
 gem 'jbuilder', '~> 2.6', '>= 2.6.4'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem "pry-rails"
